@@ -2,7 +2,7 @@ export default class AMWave {
     carrierWave;
     messageWave;
 
-    draw(ctx, carrierWave, messageWave, modulationIndex, width, height, y) {
+    draw(ctx, carrierWave, messageWave, modulationIndex, width, height, y, offset) {
         var maxHeight = 0;
         var minHeight = 0;
         for (let x = 0; x < width; x++) {
@@ -35,8 +35,8 @@ export default class AMWave {
             let message = messageWave.amplitude * Math.cos(2 * Math.PI * messageWave.frequency * x);
 
             let product = carrierWave.amplitude * (1 + modulationIndex *
-                Math.cos(2 * Math.PI * messageWave.frequency * x))
-                * Math.cos(2 * Math.PI * carrierWave.frequency * x)
+                Math.cos(2 * Math.PI * messageWave.frequency * (x) + offset))
+                * Math.cos(2 * Math.PI * carrierWave.frequency * (x) + offset)
 
             if (x == 0) {
                 context.moveTo(x, (h2 / 2) + product);

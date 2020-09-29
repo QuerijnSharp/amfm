@@ -15,7 +15,7 @@ let messageWave = new MessageWave();
 var carrier = new Wave(50, .2);
 var message = new Wave(50, 0.01);
 
-var modulationIndex = 1;
+let offset = 0;
 
 document.addEventListener('keydown', (event) => {
     event.preventDefault();
@@ -46,6 +46,7 @@ async function main() {
 }
 
 function draw() {
+    offset += parseFloat(document.getElementById("speed").value);
     message.frequency = parseFloat(document.getElementById("messageFrequency").value);
     carrier.frequency = parseFloat(document.getElementById("carrierFrequency").value);
 
@@ -59,9 +60,10 @@ function draw() {
     let height = canvas.height / 5;
     let amplitude = height / 2;
 
-    carrierWave.draw(ctx, carrier, message, modulationIndex, canvas.width, height / 2);
-    messageWave.draw(ctx, carrier, message, modulationIndex, canvas.width, height + height / 2);
-    fmWave.draw(ctx, carrier, message, parseInt(document.getElementById("fmModIdx").value), canvas.width, height * 2 + height / 2);
-    amWave.draw(ctx, carrier, message, parseInt(document.getElementById("amModIdx").value), canvas.width, height, height * 2 + (height / 2) * 1.75);
+
+    carrierWave.draw(ctx, carrier, message, 1, canvas.width, height / 2, offset);
+    messageWave.draw(ctx, carrier, message, 1, canvas.width, height + height / 2, offset);
+    fmWave.draw(ctx, carrier, message, parseInt(document.getElementById("fmModIdx").value), canvas.width, height * 2 + height / 2, offset);
+    amWave.draw(ctx, carrier, message, parseInt(document.getElementById("amModIdx").value), canvas.width, height, height * 2 + (height / 2) * 1.75, offset);
     requestAnimationFrame(draw);
 }

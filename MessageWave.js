@@ -2,7 +2,7 @@ export default class MessageWave {
     carrierWave;
     messageWave;
 
-    draw(ctx, carrierWave, messageWave, modulationIndex,  width, height) {
+    draw(ctx, carrierWave, messageWave, modulationIndex,  width, height, offset) {
         ctx.save();
         ctx.beginPath();
         ctx.moveTo(0, height);
@@ -10,9 +10,9 @@ export default class MessageWave {
         ctx.strokeStyle = "black";
 
         for (let x = 0; x < width; x++) {
-            let carrier = carrierWave.amplitude * Math.cos(2 * Math.PI * carrierWave.frequency * x);
+            let carrier = carrierWave.amplitude * Math.cos(2 * Math.PI * carrierWave.frequency * x + offset);
             //carrierWave.amplitude * Math.sin(2 * Math.PI * carrierWave.frequency * x);
-            let message = messageWave.amplitude * Math.cos(2 * Math.PI * messageWave.frequency * x + Math.PI);
+            let message = messageWave.amplitude * Math.cos(2 * Math.PI * messageWave.frequency * x + offset + Math.PI);
             if (x == 0) {
                 ctx.moveTo(x, height + message);
             }
